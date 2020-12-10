@@ -19,7 +19,8 @@ app.get("/newsFeeds/:limit/:offset", (req, res) => {
     newsArticleModel.find()
     .limit(limit)
     .skip(offset)
-    .then(data => res.send(data));
+    .then(data => res.send(data))
+    .catch((err) => console.log(err));
 })
 
 
