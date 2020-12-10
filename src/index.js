@@ -21,7 +21,19 @@ app.get("/newsFeeds/:limit/:offset", (req, res) => {
     .skip(offset)
     .then(data => res.json(data))
     .catch((err) =>res.status(400).send(err));
+});
+
+app.get('/newFeeds',(req,res)=>{
+    const limit = 10;
+    const offset = 0;
+    newsArticleModel
+    .find({}).sort({"publishedAt":-1})
+    .limit(limit)
+    .skip(offset)
+    .then((news) => res.json(news))
+    .catch((err) => res.status(400).send(err));
 })
+
 
 
 app.listen(port, () => console.log(`App listening on port ${port}!`))
