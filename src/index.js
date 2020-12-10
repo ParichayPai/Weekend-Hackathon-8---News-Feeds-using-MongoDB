@@ -18,7 +18,7 @@ app.get("/newFeeds/:limit/:offset", (req, res) => {
     }
   
     newsArticleModel
-      .find().sort({"publishedAt":-1})
+      .find()
       .limit(limit)
       .skip(offset)
       .then((news) => res.json(news))
@@ -30,10 +30,10 @@ app.get('/newFeeds',(req,res)=>{
     const limit = 10;
     const offset = 0;
     newsArticleModel
-    .find({}).sort({"publishedAt":-1})
+    .find() //.sort({"publishedAt":-1})
     .limit(limit)
     .skip(offset)
-    .then((news) => res.json(news))
+    .then((data) => res.json(data))
     .catch((err) => res.status(400).send(err));
 })
 
