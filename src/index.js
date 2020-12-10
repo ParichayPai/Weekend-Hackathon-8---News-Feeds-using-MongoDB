@@ -9,19 +9,22 @@ const {newsArticleModel} = require("./connector")
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.get("/newsFeeds/:limit/:offset", (req, res) => {
+app.get("/newFeeds/:limit/:offset", (req, res) => {
     let limit = parseInt(req.params.limit);
     let offset = parseInt(req.params.offset);
     if (isNaN(req.params.limit) || isNaN(req.params.offset)) {
-        limit = 10;
-        offset = 0;
+      limit = 10;
+      offset = 0;
     }
-    newsArticleModel.find()
-    .limit(limit)
-    .skip(offset)
-    .then(data => res.json(data))
-    .catch((err) =>res.status(400).send(err));
-});
+  
+    newsArticleModel
+      .find()  //.sort({"publishedAt":-1})
+      .limit(limit)
+      .skip(offset)
+      .then((news) => res.json(news))
+      .catch((err) => console.log(err));
+  });
+  
 
 app.get('/newFeeds',(req,res)=>{
     const limit = 10;
